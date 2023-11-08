@@ -1,0 +1,11 @@
+﻿  sinlgyLinkedLists.c
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(83,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'position'
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(192,25): warning C4013: 'malloc' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(196,7): warning C4013: 'exit' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(225,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(360,8): warning C4778: 'scanf' : unterminated format string '%'
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(378,6): warning C4013: 'free' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(425,33): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(486,33): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(585,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+  singlyLinkedLists.vcxproj -> C:\Users\Vedran\source\repos\singlyLinkedLists\Debug\singlyLinkedLists.exe

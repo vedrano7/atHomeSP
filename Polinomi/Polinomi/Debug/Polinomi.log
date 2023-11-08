@@ -1,0 +1,12 @@
+﻿  polinomi.c
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(280,21): warning C4013: 'malloc' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(280,46): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(283,10): warning C4129: 'N': unrecognized character escape sequence
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(284,7): warning C4013: 'exit' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(303,7): warning C4013: 'free' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(312,41): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(315,10): warning C4129: 'N': unrecognized character escape sequence
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(361,42): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(364,10): warning C4129: 'N': unrecognized character escape sequence
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(359,25): warning C4101: 'temp': unreferenced local variable
+  Polinomi.vcxproj -> C:\Users\Vedran\source\repos\Polinomi\Debug\Polinomi.exe
