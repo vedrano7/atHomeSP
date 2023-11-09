@@ -4,9 +4,10 @@ C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(280,46): warning C4047
 C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(283,10): warning C4129: 'N': unrecognized character escape sequence
 C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(284,7): warning C4013: 'exit' undefined; assuming extern returning int
 C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(303,7): warning C4013: 'free' undefined; assuming extern returning int
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(312,41): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(315,10): warning C4129: 'N': unrecognized character escape sequence
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(361,42): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(364,10): warning C4129: 'N': unrecognized character escape sequence
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(359,25): warning C4101: 'temp': unreferenced local variable
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(359,41): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(362,10): warning C4129: 'N': unrecognized character escape sequence
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(386,42): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(389,10): warning C4129: 'N': unrecognized character escape sequence
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(384,25): warning C4101: 'temp': unreferenced local variable
+  LINK : C:\Users\Vedran\source\repos\Polinomi\Debug\Polinomi.exe not found or not built by the last incremental link; performing full link
   Polinomi.vcxproj -> C:\Users\Vedran\source\repos\Polinomi\Debug\Polinomi.exe
