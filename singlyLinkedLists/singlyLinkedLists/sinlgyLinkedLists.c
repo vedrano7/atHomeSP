@@ -27,7 +27,7 @@ position searchPrev(position P);		 //trazenje prethodnog elementa
 
 int delete(position P);		 //trazenje prethodnog elementa
 
-int insertInFrontOf(position P);		 //umetanje iza odredenog elementa
+int insertAfterEl(position P);		 //umetanje iza odredenog elementa
 
 int insertBehind(position P);		//umetanje ispred odredenog elementa
 
@@ -60,97 +60,97 @@ int menu(position head) {
 		scanf("\n%c", &pick);
 		switch (pick) {
 
-		case '1':
+			case '1':
 
-			insertStart(head);
+				insertStart(head);
 
-			break;
-		case '2':
+				continue;
 
-			printList(head->next);
-			break;
+			case '2':
 
-		case '3':
+				printList(head->next);
 
-			insertEnd(head);
+				continue;
 
-			break;
-		case '4':
-			Q = search(head->next);
-			if (Q == NULL)
-				printf("\nElement nije naden u listi\n");
-			else
-				printf("\nElement %d je naden na lokaciji %d\n", Q->el, Q);;
+			case '3':
 
-			break;
+				insertEnd(head);
 
-		case '5':
-			delete(head);
+				continue;
 
-			break;
-
-		case '6':
-			Q = searchPrev(head);
-
-			if (Q == NULL)
-				printf("\nElement nije naden u listi\n");
-
-			else {
-				if (Q == head)
-					printf("\nElement nema prethodnika u listi\n");
+			case '4':
+				Q = search(head->next);
+				if (Q == NULL)
+					printf("\nElement nije naden u listi\n");
 				else
-					printf("\nPrethodnik trazenog elementa je %d\n", Q->el);
-			}
+					printf("\nElement %d je naden na adresi %p\n", Q->el, Q);;
 
-			break;
+				continue;
 
-		case '7':
-			insertInFrontOf(head);
+			case '5':
+				delete(head);
 
-			break;
+				continue;
 
-		case '8':
-			insertBehind(head);
+			case '6':
+				Q = searchPrev(head);
 
-			break;
+				if (Q == NULL)
+					printf("\nElement nije naden u listi\n");
 
-		case '9':
-			delAllFromBegg(head);
+				else {
+					if (Q == head)
+						printf("\nElement nema prethodnika u listi\n");
+					else
+						printf("\nPrethodnik trazenog elementa je %d\n", Q->el);
+				}
 
-			break;
+				continue;
 
-		case 'a':
-			delAllFromEnd(head);
+			case '7':
+				insertAfterEl(head->next);
 
-			break;
+				continue;
 
-		case 'b':
-			sortList(head);
+			case '8':
+				insertBehind(head);
 
-			break;
+				continue;
 
-		case 'c':
-			sortInput(head);
+			case '9':
+				delAllFromBegg(head);
 
-			break;
+				continue;
 
-		case '0':
+			case 'a':
+				delAllFromEnd(head);
 
-			printf("\nKraj programa!\n");
+				continue;
 
-			break;
+			case 'b':
+				sortList(head);
 
-		default:
-			printf("\nKrivi unos!!\n");
+				continue;
+
+			case 'c':
+				sortInput(head);
+
+				continue;
+
+			case '0':
+
+				printf("\nKraj programa!\n");
+
+				break;
+
+			default:
+				printf("\nKrivi unos!!\n");
 			
-			break;
+				continue;
 
 		}
 
-		getchar();   //doda san ovaj getchar jer kad je  bia Krivi unos uvik bi osta jedan '\n' koji bi zblesia kod (mora bi dva puta upisat 0 da se program zatvori)
-
-		if (pick == '0')
-			break;
+		break;
 
 	};
 
@@ -307,11 +307,9 @@ position searchPrev(position P) {
 	printf("\nUnesite trazeni element: \n");
 	scanf("%d", &wantedPrev);
 
-	while (P->next != NULL && P->next->el != wantedPrev) {
-
+	while (P->next != NULL && P->next->el != wantedPrev)
 		P = P->next;
 
-	}
 
 	if (P->next == NULL)
 		return NULL;
@@ -382,24 +380,24 @@ int delete(position P) {
 
 //umetanje iza odredenog elementa
 
-int insertInFrontOf(position P) {
+int insertAfterEl(position P) {
 
 	//nacin koji koristi trazenje
 
-   /* int behindWhichElToIns = 0, wantedElToIns = 0;
+   /* int afterWhichElToInsert = 0, newElToIns = 0;
 	position newNode = NULL;
 
 	printf("\nIza kojeg elementa zelite umetnuti element i koji to?\n");
-	scanf("%d %d", &behindWhichElToIns, &wantedElToIns);
+	scanf("%d %d", &afterWhichElToInsert, &newElToIns);
 
-	P = search(P->next, behindWhichElToIns);
+	P = search(P, afterWhichElToInsert);
 
 	if (P==NULL)
 		printf("\nElement iza kojeg zelite umetnuti element nije pronaden u listi\n");
 
 	else {
 		newNode = malloc(sizeof(Node));
-		newNode->el = wantedElToIns;
+		newNode->el = newElToIns;
 
 		newNode->next = P->next;
 		P->next = newNode;
@@ -408,13 +406,13 @@ int insertInFrontOf(position P) {
 
 	//nacin bez trazenja
 
-	int behindWhichElToIns = 0, wantedElToIns = 0;
+	int afterWhichElToInsert = 0, newElToIns = 0;
 	position newNode = NULL;
 
 	printf("\nIza kojeg elementa zelite umetnuti element i koji to?\n");
-	scanf("%d %d", &behindWhichElToIns, &wantedElToIns);
+	scanf("%d %d", &afterWhichElToInsert, &newElToIns);
 
-	while (P != NULL && P->el != behindWhichElToIns) {
+	while (P != NULL && P->el != afterWhichElToInsert) {
 		P = P->next;
 	}
 
@@ -429,7 +427,7 @@ int insertInFrontOf(position P) {
 			exit(-1);
 		}
 
-		newNode->el = wantedElToIns;
+		newNode->el = newElToIns;
 
 		newNode->next = P->next;
 		P->next = newNode;
@@ -447,13 +445,13 @@ int insertBehind(position P) {
 	//nacin koji koristi trazenje prethodnika
 
 	/*
-	int inFrontOfWhichElToIns = 0, wantedElToIns = 0;
+	int behindWhichElToIns = 0, wantedElToIns = 0;
 	position newNode=NULL;
 
 	printf("\nIspred kojeg elementa zelite umetnuti element i koji to?\n");
-	scanf("%d %d", &inFrontOfWhichElToIns, &wantedElToIns);
+	scanf("%d %d", &behindWhichElToIns, &wantedElToIns);
 
-	P = searchPrev(P, inFrontOfWhichElToIns);
+	P = searchPrev(P, behindWhichElToIns);
 
 	if(!P)
 		printf("\nElement ispred kojeg zelite umetnuti element nije pronaden u listi\n");
@@ -469,13 +467,13 @@ int insertBehind(position P) {
 
 	//nacin bez trazenja prethodnika
 
-	int inFrontOfWhichElToIns = 0, wantedElToIns = 0;
+	int behindWhichElToIns = 0, wantedElToIns = 0;
 	position newNode = NULL;
 
 	printf("\nIspred kojeg elementa zelite umetnuti element i koji to?\n");
-	scanf("%d %d", &inFrontOfWhichElToIns, &wantedElToIns);
+	scanf("%d %d", &behindWhichElToIns, &wantedElToIns);
 
-	while (P->next != NULL && P->next->el != inFrontOfWhichElToIns) {
+	while (P->next != NULL && P->next->el != behindWhichElToIns) {
 		P = P->next;
 	}
 
@@ -542,7 +540,7 @@ int sortList(position P) {
 
 
 
-	while (P->next != end) {
+	while (P->next!= end) {		//mogli smo i stavit while(P->next->next!=end) jer ako sortiramo sve osim jednog elementa i taj jedan sigurno mora bit sortiran (zato u bubble sortu za niz vanjska for petlja ide do N-1) 
 
 		prev_j = P;
 		j = P->next;
@@ -568,16 +566,14 @@ int sortList(position P) {
 
 		}
 
-		end = j;		//postavljamo kraj na predzadnji element jer je zadnji nakon unutrasnje while petlje sortiran i nemoramo ga gledat vise
-
-
-	}
+		end = j;		//postavljamo kraj na j jer je j->next sada zapravo najveci element koji je doveden na kraj (ili NULL ako je prva iteracija) prema principu bubble sorta pa u slijedecoj iteraciji unutarnje while petlje kada j->next dode na tu vrijednost izac ce iz petlje jer nema svrhe da gledamo je li njegov prethodnik veci od njega kad znamo da je on najveci u listi (u prvoj iteraciji kraj ide sa NULL na zadnji el i onda se samo mice za jedan el prema lijevo pri svakoj iteraciji sve dok ne dode do prvog el)
+	}					//takoder s time priblizavamo kraj vanjskoj while petlji tako da ona zna kad smo sortirali sve elemente
 
 
 	return 0;
 }
 
-//sortirani unos u listu
+////sortirani unos u listu
 
 int sortInput(position P) {
 	position newNode = NULL;

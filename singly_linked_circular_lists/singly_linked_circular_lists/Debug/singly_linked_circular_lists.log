@@ -1,0 +1,10 @@
+﻿  singly_linked_circular_lists.c
+C:\Users\Vedran\source\repos\singly_linked_circular_lists\singly_linked_circular_lists\singly_linked_circular_lists.c(155,18): warning C4013: 'malloc' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\singly_linked_circular_lists\singly_linked_circular_lists\singly_linked_circular_lists.c(155,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\singly_linked_circular_lists\singly_linked_circular_lists\singly_linked_circular_lists.c(189,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\singly_linked_circular_lists\singly_linked_circular_lists\singly_linked_circular_lists.c(193,7): warning C4013: 'exit' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\singly_linked_circular_lists\singly_linked_circular_lists\singly_linked_circular_lists.c(276,8): warning C4013: 'free' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\singly_linked_circular_lists\singly_linked_circular_lists\singly_linked_circular_lists.c(316,33): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\singly_linked_circular_lists\singly_linked_circular_lists\singly_linked_circular_lists.c(355,33): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\singly_linked_circular_lists\singly_linked_circular_lists\singly_linked_circular_lists.c(416,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+  singly_linked_circular_lists.vcxproj -> C:\Users\Vedran\source\repos\singly_linked_circular_lists\Debug\singly_linked_circular_lists.exe
