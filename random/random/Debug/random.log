@@ -1,10 +1,2 @@
 ﻿  random.c
-C:\Users\Vedran\source\repos\random\random\random.c(157,18): warning C4013: 'malloc' undefined; assuming extern returning int
-C:\Users\Vedran\source\repos\random\random\random.c(157,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\random\random\random.c(191,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\random\random\random.c(195,7): warning C4013: 'exit' undefined; assuming extern returning int
-C:\Users\Vedran\source\repos\random\random\random.c(278,8): warning C4013: 'free' undefined; assuming extern returning int
-C:\Users\Vedran\source\repos\random\random\random.c(319,33): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\random\random\random.c(358,33): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\random\random\random.c(419,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
   random.vcxproj -> C:\Users\Vedran\source\repos\random\Debug\random.exe

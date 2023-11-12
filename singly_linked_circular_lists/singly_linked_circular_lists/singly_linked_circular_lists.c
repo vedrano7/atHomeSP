@@ -223,12 +223,8 @@ position search(position firstEl) {
 	printf("\nUnesite trazeni element: \n");
 	scanf("%d", &wantedEl);
 
-
-	do {
-
+	while (current->next != firstEl && current->el!=wantedEl) 
 		current = current->next;
-
-	} while (current != refToFirstEl && current->el != wantedEl);
 
 	if (current->el == wantedEl)
 		return current;
@@ -240,18 +236,16 @@ position search(position firstEl) {
 int delete(position head) {
 
 	int wantedToDel = 0;
-	position toDel = NULL, current = head, refToFirstEl = head->next, prev = NULL;
+	position toDel = NULL, current = head->next, refToFirstEl = head->next, prev = NULL;
 
 	printf("\nUnesite element koji zelite izbrisati iz liste:\n");
 	scanf("%d", &wantedToDel);
 
-	do {
-
+	while (current->next != refToFirstEl && current->el!=wantedToDel) {
 		prev = current;
 		current = current->next;
-
-	} while (current->next != refToFirstEl && current->el != wantedToDel);
-
+	}
+	
 
 	if (current->el == wantedToDel) {
 
@@ -301,15 +295,13 @@ int delete(position head) {
 int insertAfterEl(position head) {
 
 	int afterWhichElToInsert = 0, newElToIns = 0;
-	position newNode = NULL, current = head, refToFirstEl = head->next;
+	position newNode = NULL, current = head->next, refToFirstEl = head->next;
 
 	printf("\nIza kojeg elementa zelite umetnuti element i koji to?\n");
 	scanf("%d %d", &afterWhichElToInsert, &newElToIns);
 
-	do {
+	while (current->next != refToFirstEl && current->el != afterWhichElToInsert)
 		current = current->next;
-	} while (current->next != refToFirstEl && current->el != afterWhichElToInsert);
-
 
 	if (current->el == afterWhichElToInsert) {
 
@@ -340,15 +332,14 @@ int insertBehindEl(position head) {
 
 
 	int behindWhichElToIns = 0, newElToIns = 0;
-	position newNode = NULL, current = head, refToFirstEl = head->next;
+	position newNode = NULL, current = head->next, refToFirstEl = head->next;
 
 	printf("\nIspred kojeg elementa zelite umetnuti element i koji to?\n");
 	scanf("%d %d", &behindWhichElToIns, &newElToIns);
 
-	do {
-		current = current->next;
-	} while (current->next != refToFirstEl && current->next->el != behindWhichElToIns);
 
+	while (current->next != refToFirstEl && current->next->el != behindWhichElToIns)
+		current = current->next;
 
 	if (current->next->el == behindWhichElToIns) {
 
@@ -411,7 +402,7 @@ int delAll(position head) {
 }
 
 int sortInput(position head) {
-	position newNode = NULL, current = head, refToFirstEl = head->next;
+	position newNode = NULL, current = head->next, refToFirstEl = head->next;
 
 	newNode = malloc(sizeof(Node));
 
@@ -432,12 +423,9 @@ int sortInput(position head) {
 
 	else {
 
-		do {
 
+		while (current->next != refToFirstEl && current->next->el < newNode->el)
 			current = current->next;
-
-		} while (current->next != refToFirstEl && current->next->el < newNode->el);
-
 
 		if (current->next->el >= newNode->el) {		//kad dodajemo prije nekog clana
 
