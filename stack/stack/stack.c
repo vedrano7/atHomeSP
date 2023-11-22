@@ -153,20 +153,20 @@ typedef struct node{		//element stoga
 	position next;
 }Node;
 
-int menu(position head);
-int printStack(position firstNode);
-int push(int newEl, position head);
-int pop(position head);
+int menu(position top);
+int printStack(position top);		//rekurzivno ispisuje s vrha prema pocetku
+int push(int newEl, position top);
+int pop(position top);
 
 int main() {
-	Node head = { 0,NULL };
+	Node head = { 0,NULL };		//u stogu necemo imat odvojeni head element nego ce on zapravo bit top (tj vrh stoga) i pri svakom dodavanju novog elementa cemo ga micat na novi element na vrhu
 
 	menu(&head);
 
 	return EXIT_SUCCESS;
 }
 
-int menu(position head) {
+int menu(position top) {
 	char pick = '\0';
 	int newEl = 0;
 
@@ -180,17 +180,17 @@ int menu(position head) {
 			printf("\nUpisite vrijednost novog elementa: ");
 			scanf("%d", &newEl);
 
-			push(newEl, head);
+			push(newEl, top);
 
 			break;
 
 		case '2':
-			printStack(head->next);
+			printStack(top);
 
 			break;
 
 		case '3':
-			pop(head);
+			printf("\n%d",pop(top));
 
 			break;
 
@@ -212,31 +212,34 @@ int menu(position head) {
 	return EXIT_SUCCESS;
 }
 
-int printStack(position firstNode) {
+int printStack(position top) {	
+	int currentStackEl = 0;
 
-	printf("\n------------\n");
 
-	if (firstNode == NULL)
-		printf("Stog je prazan!\n");
+	if (top->next == NULL)
+		return EXIT_SUCCESS;
 
 	else {
-		while (firstNode != NULL) {
 
-			printf("%d\n", firstNode->el);
-			firstNode = firstNode->next;
-		}
+		currentStackEl = top->next->el;
+
+		printf("%d ", currentStackEl);
 
 
+		pop(top);
+
+		printStack(top);
+
+		push(currentStackEl,top);
+		
 	}
-
-	printf("------------\n");
 
 	return EXIT_SUCCESS;
 }
 
 
-int push(int newEl, position head) {
-	position newNode = NULL, current = head;
+int push(int newEl, position top) {
+	position newNode = NULL;
 
 	newNode = malloc(sizeof(Node));
 
@@ -247,35 +250,31 @@ int push(int newEl, position head) {
 
 	newNode->el = newEl;
 
-	while (current->next != NULL)
-		current = current->next;
-
-	newNode->next = current->next;
-	current->next = newNode;
+	newNode->next = top->next;
+	top->next = newNode;
 
 
 	return EXIT_SUCCESS;
 }
 
 
-int pop(position head) {
-	position current = head, temp = NULL;
+int pop(position top) {
+	position toDel = NULL;
+	int poppedEl=0;
 
-	if (head->next == NULL) {
-		printf("\nStog nema elemenata!\n");
+	if (top->next == NULL) {
+		printf("\nStog nema elemenata za izbacit!\n");
 	}
 
 	else {
 
-		while (current->next->next != NULL)
-			current = current->next;
+		toDel = top->next;
+		top->next = toDel->next;
 
-		temp = current->next;
-		current->next = temp->next;
-		free(temp);
+		poppedEl = toDel->el;
 
-		printf("\nElement s vrha je skinut!\n");
+		free(toDel);
 	}
 
-	return EXIT_SUCCESS;
+	return poppedEl;
 }

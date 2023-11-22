@@ -1,4 +1,4 @@
-//red je vezana lista koja prati princip FIFO (first in, first out)
+﻿//red (queue) je vezana lista koja prati princip FIFO (first in, first out -> upisivanje se radi na kraj liste, a skidanje se radi s početka liste)
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
@@ -13,20 +13,14 @@ typedef struct node {		//element reda
 	position next;
 }Node;
 
-int menu(position head);
-int printQueue(position firstNode);
-int enqueue(int newEl, position head);		//stavljat element na kraj reda
-int dequeue(position head);					//skida element s pocetka reda
+position front = NULL, rear = NULL;		//umjesto globalnih varijabli mogli smo koristit i duple pokazivace i onda njih slat u funkcije
+
+int printQueue();
+int enqueue(int newEl);		//stavlja element na kraj reda
+int dequeue();				//skida element s pocetka reda
 	
 int main() {
-	Node head = { 0,NULL };
 
-	menu(&head);
-
-	return EXIT_SUCCESS;
-}
-
-int menu(position head) {
 	char pick = '\0';
 	int newEl = 0;
 
@@ -40,17 +34,17 @@ int menu(position head) {
 			printf("\nUpisite vrijednost novog elementa: ");
 			scanf("%d", &newEl);
 
-			enqueue(newEl, head);
+			enqueue(newEl, front, rear);
 
 			continue;
 
 		case '2':
-			printQueue(head->next);
+			printQueue(front);
 
 			continue;
 
 		case '3':
-			dequeue(head);
+			dequeue(front, rear);
 
 			continue;
 
@@ -64,25 +58,28 @@ int menu(position head) {
 
 			continue;
 		}
-		
+
 		break;
 	}
+
 
 	return EXIT_SUCCESS;
 }
 
-int printQueue(position firstNode) {
+
+int printQueue() {
+	position current = front;
 
 	printf("\n------------\n");
 
-	if (firstNode == NULL)
+	if (front == NULL)
 		printf("Red je prazan!\n");
 
 	else {
-		while (firstNode != NULL) {
+		while (current != NULL) {
 
-			printf("%d\n", firstNode->el);
-			firstNode = firstNode->next;
+			printf("%d\n", current->el);
+			current = current->next;
 		}
 
 
@@ -94,8 +91,8 @@ int printQueue(position firstNode) {
 }
 
 
-int enqueue(int newEl, position head) {
-	position newNode = NULL, current = head;
+int enqueue(int newEl) {
+	position newNode = NULL;
 
 	newNode = malloc(sizeof(Node));
 
@@ -105,12 +102,20 @@ int enqueue(int newEl, position head) {
 	}
 
 	newNode->el = newEl;
+	newNode->next = NULL;
 
-	while (current->next != NULL)
-		current = current->next;
+	if (front == NULL && rear == NULL) {
 
-	newNode->next = current->next;
-	current->next = newNode;
+		front = rear = newNode;		//zbog ovoga moramo koristit globalne var (ili duple pokazivace) jer da smo inicijalizirali front i rear u mainu i slali ih u f-fju onda bi s ovime mijenjali adrese na koje pokazuju kopije pokazivaca front i rear, koje nastaju u f-ji kad ih posaljemo u nju, a ta se radnja napravi uvijek samo u tom bloku tj lokalno pa bi izvan ove fje front i rear jos uvijek bili NULL (kad su varijable globalne ne moramo ih slat u f-ju tj nema potrebe za kopijama varijabli unutar f-ja jer je njima cijeli kod podatkovni blok)
+	}
+
+	else {
+	
+		rear->next = newNode;
+
+		rear = newNode;
+
+	}
 
 	printf("\nElement je dodan na kraj reda!\n");
 
@@ -118,17 +123,21 @@ int enqueue(int newEl, position head) {
 }
 
 
-int dequeue(position head) {
+int dequeue() {
 	position temp = NULL;
 
-	if (head->next == NULL) {
+	if (front== NULL) {
 		printf("\nStog nema elemenata!\n");
 	}
 
 	else {
 
-		temp = head->next;
-		head->next = temp->next;
+		temp = front;
+
+		front = front->next;
+
+		if (front == NULL)
+			rear = NULL;
 
 		free(temp);
 

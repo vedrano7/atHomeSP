@@ -1,2 +1,3 @@
 ﻿  random.c
+C:\Users\Vedran\source\repos\random\random\random.c(59,20): warning C4047: 'return': 'int' differs in levels of indirection from 'void *'
   random.vcxproj -> C:\Users\Vedran\source\repos\random\Debug\random.exe

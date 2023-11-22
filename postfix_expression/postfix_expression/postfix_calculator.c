@@ -27,15 +27,15 @@ typedef struct pfStackEl {
 
 }PfStackEl;
 
-int infixToPostfix(char* infixEq,char* postfixEq, positionIftPf headPtF);	//pretvaranje infix izraza u postfix izraz
+int infixToPostfix(char* infixEq,char* postfixEq, positionIftPf topPtF);	//pretvaranje infix izraza u postfix izraz
 
-int postfixCalculator(char* postfixEq, positionP headP);					//racunanje postfix izraza
+int postfixCalculator(char* postfixEq, positionP topP);					//racunanje postfix izraza
 
-int pushIftPf(char newEl, positionIftPf headPtF);
-int popIftPf(positionIftPf headPtF);
+int pushIftPf(char newEl, positionIftPf topPtF);
+int popIftPf(positionIftPf topPtF);
 
-int pushP(int newEl, positionP headP);
-int popP(positionP headP);
+int pushP(int newEl, positionP topP);
+int popP(positionP topP);
 
 int main() {
 	IftPfStackEl headIftPF = { '\0',NULL };
@@ -56,342 +56,259 @@ int main() {
 	return EXIT_SUCCESS;
 }
 
-infixToPostfix(char* infixEq, char* postfixEq, positionIftPf headIftPF) {
+infixToPostfix(char* infixEq, char* postfixEq, positionIftPf topIftPF) {
 	char temp = '\0';
-	int numBytes = 0, status = 0, i = 0;
-	positionIftPf current = headIftPF;
+	int numBytes = 0, i = 0;
 
 	while (strlen(infixEq) > 0) {
 
 		sscanf(infixEq, "%c%n", &temp, &numBytes);
 
 		if (temp == '(')
-			pushIftPf(temp, headIftPF);
+			pushIftPf(temp, topIftPF);
 
 		else if (temp == '+') {
 
-			status = 0;
-
 			while (1) {
 
-				current = headIftPF;
-
-				while (current->next != NULL)
-					current = current->next;
-
-				if (headIftPF->next != NULL) {
-					switch (current->el) {
+				if (topIftPF->next != NULL) {
+					switch (topIftPF->next->el) {
 
 						case '+':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
-
-							break;
+							continue;
 
 						case '-':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
-
-							break;
+							continue;
 
 						case '*':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
-
-							break;
+							continue;
 
 						case '/':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
-
-							break;
+							continue;
 
 						case '(':
-							pushIftPf(temp, headIftPF);
-							status = 1;
+							pushIftPf(temp, topIftPF);
 
 							break;
 					}
 				}
 
 				else {
-					pushIftPf(temp, headIftPF);
+					pushIftPf(temp, topIftPF);
 
 					break;
-
 				}
 
-				if (status == 1)
-					break;
+				
+				break;
 			}
 
 		}
 
 		else if (temp == '-') {
 
-			status = 0;
-
 			while (1) {
 
-				current = headIftPF;
-
-				while (current->next != NULL)
-					current = current->next;
-
-				if (headIftPF->next != NULL) {
-					switch (current->el) {
+				if (topIftPF->next != NULL) {
+					switch (topIftPF->next->el) {
 
 						case '-':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
-
-							break;
+							continue;
 
 						case '+':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
-
-							break;
+							continue;
 
 						case '*':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
-
-							break;
+							continue;
 
 						case '/':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
-							break;
+							continue;
 
 						case '(':
-							pushIftPf(temp, headIftPF);
-							status = 1;
+							pushIftPf(temp, topIftPF);
 
 							break;
-					}
+						}
 				}
-
 
 				else {
-					pushIftPf(temp, headIftPF);
+					pushIftPf(temp, topIftPF);
 
 					break;
-
 				}
 
-				if (status == 1)
-					break;
-			}
 
+				break;
+			}
 		}
+
 
 		else if (temp == '*') {
 
-			status = 0;
-
 			while (1) {
 
-				current = headIftPF;
-
-				while (current->next != NULL)
-					current = current->next;
-
-				if (headIftPF->next != NULL) {
-					switch (current->el) {
+				if (topIftPF->next != NULL) {
+					switch (topIftPF->next->el) {
 
 						case '*':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
-							
-							break;
+							continue;
 
 						case '/':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
+							continue;
+
+						case '-':
+							postfixEq[i++] = topIftPF->next->el;
+
+							pushIftPf(temp, topIftPF);
 
 							break;
 
 						case '+':
-							pushIftPf(temp, headIftPF);
-							status = 1;
+							postfixEq[i++] = topIftPF->next->el;
 
-							break;
-
-						case '-':
-							pushIftPf(temp, headIftPF);
-							status = 1;
+							pushIftPf(temp, topIftPF);
 
 							break;
 
 						case '(':
-							pushIftPf(temp, headIftPF);
-							status = 1;
+							pushIftPf(temp, topIftPF);
 
 							break;
 					}
 				}
 
 				else {
-					pushIftPf(temp, headIftPF);
+					pushIftPf(temp, topIftPF);
 
 					break;
 				}
 
 
-				if (status == 1)
-					break;
-			}
+				break;
 
+			}
 		}
 
 
 		else if (temp == '/') {
 
-			status = 0;
-
 			while (1) {
 
-				current = headIftPF;
-
-				while (current->next != NULL)
-					current = current->next;
-
-				if (headIftPF->next != NULL) {
-					switch (current->el) {
+				if (topIftPF->next != NULL) {
+					switch (topIftPF->next->el) {
 
 						case '/':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
-
-							break;
+							continue;
 
 						case '*':
-							postfixEq[i] = current->el;;
-							i++;
+							postfixEq[i++] = topIftPF->next->el;
 
-							popIftPf(headIftPF);
+							popIftPf(topIftPF);
 
-							status = 0;
+							continue;
+
+						case '-':
+							postfixEq[i++] = topIftPF->next->el;
+
+							pushIftPf(temp, topIftPF);
 
 							break;
 
 						case '+':
-							pushIftPf(temp, headIftPF);
-							status = 1;
+							postfixEq[i++] = topIftPF->next->el;
 
-							break;
-
-						case '-':
-							pushIftPf(temp, headIftPF);
-							status = 1;
+							pushIftPf(temp, topIftPF);
 
 							break;
 
 						case '(':
-							pushIftPf(temp, headIftPF);
-							status = 1;
+							pushIftPf(temp, topIftPF);
 
 							break;
 					}
 				}
 
 				else {
-					pushIftPf(temp, headIftPF);
+					pushIftPf(temp, topIftPF);
 
 					break;
 				}
 
-				if (status == 1)
-					break;
-			}
 
+				break;
+
+			}
 		}
 
 		else if (temp == ')') {
 
-			status = 0;
-
 			while (1) {
 
-				current = headIftPF;
+				if (topIftPF->next->el != '(') {
 
-				while (current->next != NULL)
-					current = current->next;
+					postfixEq[i++] = topIftPF->next->el;
 
-				if (current->el != '(') {
-
-					postfixEq[i] = current->el;
-					popIftPf(headIftPF);
-					i++;
+					popIftPf(topIftPF);
 				}
 
 				else {
 
-					popIftPf(headIftPF);
-					status = 1;
+					popIftPf(topIftPF);
 
 					break;
 				}
 
-				if (status == 1)
-					break;
-
-				current = headIftPF;
 			}
 		}
 
-		else {
+		else {		//ovo je slucaj kad skeniramo brojeve
 
-			if (temp == '\n')
-				break;
-
-			postfixEq[i] = temp;
-			i++;
+			if (temp != '\n')		//ovo stavljamo jer nezelimo ubacit znak za novi red koji je osta pri unosu infix niza s tipkovnice u novi postfix niz
+				postfixEq[i++] = temp;
 		}
 
 		infixEq += numBytes;
@@ -399,27 +316,21 @@ infixToPostfix(char* infixEq, char* postfixEq, positionIftPf headIftPF) {
 
 	}
 
-		if (headIftPF->next != NULL) {
+	if (topIftPF->next!= NULL) {		//kad dodemo do kraja infix izraza trebamo izbacit sve operande koji su ostali u stogu
 
-			while (headIftPF->next != NULL) {
+		while (topIftPF->next != NULL) {
 
-				current = headIftPF;
+			postfixEq[i++] = topIftPF->next->el;
 
-				while (current->next != NULL)
-					current = current->next;
-
-				postfixEq[i] = current->el;
-				i++;
-
-				popIftPf(headIftPF);
-			}
+			popIftPf(topIftPF);
 		}
+	}
 
-		return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
 
-int pushIftPf(char newEl, positionIftPf headIftPF) {
-	positionIftPf newIftPfStackEl = NULL, current = headIftPF;
+int pushIftPf(char newEl, positionIftPf topIftPF) {
+	positionIftPf newIftPfStackEl = NULL;
 
 	newIftPfStackEl = malloc(sizeof(IftPfStackEl));
 
@@ -430,34 +341,27 @@ int pushIftPf(char newEl, positionIftPf headIftPF) {
 
 	newIftPfStackEl->el = newEl;
 
-	while (current->next != NULL)
-		current = current->next;
-
-	newIftPfStackEl->next = current->next;
-	current->next = newIftPfStackEl;
-
+	newIftPfStackEl->next = topIftPF->next;
+	topIftPF->next = newIftPfStackEl;
 
 	return EXIT_SUCCESS;
 }
 
-int popIftPf(positionIftPf headIftPF) {
-	positionIftPf current = headIftPF, temp = NULL;
+int popIftPf(positionIftPf topIftPF) {
+	positionIftPf toDel = NULL;
+	int poppedEl = 0;
 
+	toDel = topIftPF->next;
+	topIftPF->next = toDel->next;
 
-	while (current->next->next != NULL)
-		current = current->next;
+	free(toDel);
 
-	temp = current->next;
-	current->next = temp->next;
-	free(temp);
-
-	return EXIT_SUCCESS;
+	return poppedEl;
 }
 
-int postfixCalculator(char* postfixEq, positionP headP) {
+int postfixCalculator(char* postfixEq, positionP topP) {
 	char temp = '\0';
 	int numBytes = 0, resultant = 0, counter = 0,number=0;
-	positionP current = headP;
 
 	while (strlen(postfixEq) > 0) {
 
@@ -466,8 +370,8 @@ int postfixCalculator(char* postfixEq, positionP headP) {
 	
 		if (isdigit(temp)!=0){		//provjerava je li char broj
 			number = temp - 48;			//za dobit brojcanu vrijednost nekog broja zapisanog u charu najlakse mu je oduzet ASCII vrijednost nule, a to je 48
-
-			pushP(number, headP);
+											//umjesto ovog bolje koristit onu verziju sa provjeravanjen povratne vrijednosti sscanf koju iman na lab4 
+			pushP(number, topP);
 		}
 
 		else if (temp == '+') {
@@ -476,21 +380,16 @@ int postfixCalculator(char* postfixEq, positionP headP) {
 
 			for (counter = 0; counter < 2; counter++) {
 
-				current = headP;
-
-				while (current->next != NULL)
-					current = current->next;
-
 				if (resultant == 0)
-					resultant = current->el;
+					resultant = topP->next->el;
 				
 				else
-					resultant += current->el;
+					resultant += topP->next->el;
 
-				popP(headP);
+				popP(topP);
 			}
 
-			pushP(resultant, headP);
+			pushP(resultant, topP);
 
 		}
 
@@ -501,22 +400,17 @@ int postfixCalculator(char* postfixEq, positionP headP) {
 
 			for (counter = 0; counter < 2; counter++) {
 
-				current = headP;
-
-				while (current->next != NULL)
-					current = current->next;
-
 				if (resultant == 0)
-					resultant = current->el;
+					resultant = topP->next->el;
 
 				else
-					resultant = current->el-resultant;	//moramo ovako jer oduzimanje nije komutativno!! (prvi je u stog stavljen onaj od kojeg se oduzima, a poslije njega onaj kojeg oduzimamo pa ih mi odi izvlacimo u obrnuton smjeru)
+					resultant = topP->next->el - resultant;	//moramo ovako jer oduzimanje nije komutativno!! (prvi je u stog stavljen onaj od kojeg se oduzima, a poslije njega onaj kojeg oduzimamo pa ih mi odi izvlacimo u obrnuton smjeru)
 
-				popP(headP);
+				popP(topP);
 
 			}
 
-			pushP(resultant, headP);
+			pushP(resultant, topP);
 
 		}
 
@@ -526,22 +420,17 @@ int postfixCalculator(char* postfixEq, positionP headP) {
 
 			for (counter = 0; counter < 2; counter++) {
 
-				current = headP;
-
-				while (current->next != NULL)
-					current = current->next;
-
 				if (resultant == 0)
-					resultant = current->el;
+					resultant = topP->next->el;
 
 				else
-					resultant *= current->el;
+					resultant *= topP->next->el;
 
-				popP(headP);
+				popP(topP);
 
 			}
 
-			pushP(resultant, headP);
+			pushP(resultant, topP);
 
 		}
 
@@ -551,22 +440,17 @@ int postfixCalculator(char* postfixEq, positionP headP) {
 
 			for (counter = 0; counter < 2; counter++) {
 
-				current = headP;
-
-				while (current->next != NULL)
-					current = current->next;
-
 				if (resultant == 0)
-					resultant = current->el;
+					resultant = topP->next->el;
 
 				else
-					resultant = current->el/resultant;		//moramo ovako jer dijeljenje nije komutativno!! (prvi je u stog stavljen djeljenik, a poslije djelitelj pa ih mi odi izvlacimo u obrnuton smjeru)
+					resultant = topP->next->el /resultant;		//moramo ovako jer dijeljenje nije komutativno!! (prvi je u stog stavljen djeljenik, a poslije djelitelj pa ih mi odi izvlacimo u obrnuton smjeru)
 
-				popP(headP);
+				popP(topP);
 
 			}
 
-			pushP(resultant, headP);
+			pushP(resultant, topP);
 
 		}
 	
@@ -574,12 +458,12 @@ int postfixCalculator(char* postfixEq, positionP headP) {
 		postfixEq += numBytes;
 	}
 
-	printf("\nRezultat je: %d\n", headP->next->el);
-	popP(headP);		//da ispraznimo stog do kraja
+	printf("\nRezultat je: %d\n", topP->next->el);
+	popP(topP);		//da ispraznimo stog do kraja (jer je osta rezultat kao jedini clan stoga)
 }
 
-int pushP(int newEl, positionP headP) {
-	positionP newPfStackEl = NULL, current = headP;
+int pushP(int newEl, positionP topP) {
+	positionP newPfStackEl = NULL;
 
 	newPfStackEl = malloc(sizeof(PfStackEl));
 
@@ -590,27 +474,23 @@ int pushP(int newEl, positionP headP) {
 
 	newPfStackEl->el = newEl;
 
-	while (current->next != NULL)
-		current = current->next;
-
-	newPfStackEl->next = current->next;
-	current->next = newPfStackEl;
+	newPfStackEl->next = topP->next;
+	topP->next = newPfStackEl;
 
 
 	return EXIT_SUCCESS;
 }
 
-int popP(positionP headP) {
-	positionP current = headP, temp = NULL;
+int popP(positionP topP) {
+	positionP toDel = NULL;
+	int poppedEl = 0;
 
 
-	while (current->next->next != NULL)
-		current = current->next;
+	toDel = topP->next;
+	topP->next = toDel->next;
 
-	temp = current->next;
-	current->next = temp->next;
-	free(temp);
+	free(toDel);
 
-	return EXIT_SUCCESS;
+	return poppedEl;
 }
 

@@ -13,12 +13,12 @@ typedef struct node {
 	position next;
 }Node;
 
-int readCodeAndCheckAFter(FILE* fileName,position head);
-int push(char cFromFIle, position head);
-int pop(position prevToLastEl);
-int check(char cFromFile, position head);
+int readCodeAndCheckAFter(FILE* fileName,position top);
+int push(char cFromFIle, position top);
+int pop(position top);
+int check(char cFromFile, position top);
 
-//int pop(char cFromFile, position head);
+//int pop(char cFromFile, position top);
 //int check(char cFromFile, char cFromList);
 
 int main() {
@@ -30,7 +30,7 @@ int main() {
 	return EXIT_SUCCESS;
 }
 
-int readCodeAndCheckAFter(FILE* fileName, position head) {
+int readCodeAndCheckAFter(FILE* fileName, position top) {
 	char c = '\0';
 
 	fileName = fopen("check_code.txt", "r");
@@ -40,12 +40,12 @@ int readCodeAndCheckAFter(FILE* fileName, position head) {
 
 		if (c == '(' || c == '[' || c == '{') {
 
-			push(c, head);
+			push(c, top);
 		}
 
 		else if (c == ')' || c == ']' || c == '}') {
 
-			check(c, head);
+			check(c, top);
 		}
 
 		else
@@ -55,7 +55,7 @@ int readCodeAndCheckAFter(FILE* fileName, position head) {
 
 	
 
-	if(head->next!=NULL)											//s ovime provjerama imaju li neke otvorene zagrade same u stogu (to ce bit ako su one zadnje napisane u kodu) jer ako ima to znaci da nemaju para u kodu jer bi inace bile popane i time bi bia prazan stog
+	if(top->next!=NULL)											//s ovime provjerama imaju li neke otvorene zagrade same u stogu (to ce bit ako su one zadnje napisane u kodu) jer ako ima to znaci da nemaju para u kodu jer bi inace bile popane i time bi bia prazan stog
 		printf("\nSyntax error regarding brackets in code!\n");
 
 	fclose(fileName);
@@ -64,8 +64,8 @@ int readCodeAndCheckAFter(FILE* fileName, position head) {
 }
 
 
-int push(char cFromFile, position head) {
-	position newNode = NULL, current = head;
+int push(char cFromFile, position top) {
+	position newNode = NULL;
 
 	newNode = malloc(sizeof(Node));
 
@@ -76,30 +76,23 @@ int push(char cFromFile, position head) {
 
 	newNode->bracket = cFromFile;
 
-	while (current->next != NULL)
-		current = current->next;
-
-	newNode->next = current->next;
-	current->next = newNode;
+	newNode->next = top->next;
+	top->next = newNode;
 
 
 	return EXIT_SUCCESS;
 }
 
-int check(char cFromFile, position head) {
-	position current = head;
+int check(char cFromFile, position top) {
 	int status = 0;
 
-	if (head->next == NULL)
+	if (top->next == NULL)
 		printf("\nSyntax error regarding brackets in code!\n");
 
 	else {
 
-		while (current->next->next != NULL)
-			current = current->next;
-
-		if ((current->next->bracket == '(' && cFromFile == ')') || (current->next->bracket == '[' && cFromFile == ']') || (current->next->bracket == '{' && cFromFile == '}'))
-			pop(current);
+		if ((top->next->bracket == '(' && cFromFile == ')') || (top->next->bracket == '[' && cFromFile == ']') || (top->next->bracket == '{' && cFromFile == '}'))
+			pop(top);
 
 		else
 			printf("\nSyntax error regarding brackets in code!\n");
@@ -109,12 +102,11 @@ int check(char cFromFile, position head) {
 	return EXIT_SUCCESS;
 }
 
-int pop(position prevToLastEl) {
+int pop(position top) {
 	position temp = NULL;
-	int status = 0;
 
-	temp = prevToLastEl->next;
-	prevToLastEl->next = temp->next;
+	temp = top->next;
+	top->next = temp->next;
 
 	free(temp);
 
