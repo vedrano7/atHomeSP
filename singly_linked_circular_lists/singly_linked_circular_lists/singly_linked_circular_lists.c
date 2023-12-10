@@ -40,7 +40,6 @@ int main() {
 	return 0;
 }
 
-
 int menu(position head) {
 	char pick = '\0';
 	position Q = NULL;
@@ -122,7 +121,6 @@ int menu(position head) {
 
 	return 0;
 }
-
 
 int printList(position firstEl) {
 	position current = firstEl;
@@ -218,7 +216,7 @@ int insertEnd(position head) {
 position search(position firstEl) {
 
 	int wantedEl = 0;
-	position current = firstEl, refToFirstEl = firstEl;
+	position current = firstEl;
 
 	printf("\nUnesite trazeni element: \n");
 	scanf("%d", &wantedEl);
@@ -234,7 +232,6 @@ position search(position firstEl) {
 }
 
 int delete(position head) {
-
 	int wantedToDel = 0;
 	position toDel = NULL, current = head->next, refToFirstEl = head->next, prev = NULL;
 
@@ -252,7 +249,7 @@ int delete(position head) {
 		if (current == refToFirstEl) {
 			toDel = current;
 
-			if (toDel->next != toDel) {
+			if (toDel->next != toDel) {		//provjerava je li clan kojeg zelimo izbrisat zadnji u listi (jer da je zadnji njegov next bi bia on sam jer je cirkularna lista)
 
 				head->next = toDel->next;
 
@@ -261,7 +258,7 @@ int delete(position head) {
 					current = current->next;
 				} while (current->next != toDel);
 
-				current->next = head->next;
+				current->next = toDel->next;
 			}
 
 			else
@@ -375,7 +372,7 @@ int delAll(position head) {
 
 		toDel = head->next;
 
-		if (toDel->next != toDel) {
+		if (toDel->next != toDel) {			//provjerava je li clan kojeg zelimo izbrisat zadnji u listi (jer da je zadnji njegov next bi bia on sam jer je cirkularna lista)
 
 			current = head;
 

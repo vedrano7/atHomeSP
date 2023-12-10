@@ -1,0 +1,4 @@
+﻿  binary_expression_tree.c
+C:\Users\Vedran\source\repos\binary_expression_tree\binary_expression_tree\binary_expression_tree.c(56,15): warning C4013: 'strlen' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\binary_expression_tree\binary_expression_tree\binary_expression_tree.c(91,26): warning C4047: '!=': 'int' differs in levels of indirection from 'char [2]'
+  binary_expression_tree.vcxproj -> C:\Users\Vedran\source\repos\binary_expression_tree\Debug\binary_expression_tree.exe

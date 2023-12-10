@@ -18,9 +18,6 @@ int push(char cFromFIle, position top);
 int pop(position top);
 int check(char cFromFile, position top);
 
-//int pop(char cFromFile, position top);
-//int check(char cFromFile, char cFromList);
-
 int main() {
 	Node head = { '\0' ,NULL};
 	FILE* fileName=NULL;
@@ -62,7 +59,6 @@ int readCodeAndCheckAFter(FILE* fileName, position top) {
 
 	return EXIT_SUCCESS;
 }
-
 
 int push(char cFromFile, position top) {
 	position newNode = NULL;

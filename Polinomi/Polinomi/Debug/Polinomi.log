@@ -1,13 +1,20 @@
 ﻿  polinomi.c
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(280,21): warning C4013: 'malloc' undefined; assuming extern returning int
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(280,46): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(283,10): warning C4129: 'N': unrecognized character escape sequence
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(284,7): warning C4013: 'exit' undefined; assuming extern returning int
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(303,7): warning C4013: 'free' undefined; assuming extern returning int
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(359,41): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(362,10): warning C4129: 'N': unrecognized character escape sequence
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(386,42): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(389,10): warning C4129: 'N': unrecognized character escape sequence
-C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(384,25): warning C4101: 'temp': unreferenced local variable
-  LINK : C:\Users\Vedran\source\repos\Polinomi\Debug\Polinomi.exe not found or not built by the last incremental link; performing full link
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(249,30): warning C4474: 'printf' : too many arguments passed for format string
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(249,30): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(252,31): warning C4474: 'printf' : too many arguments passed for format string
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(252,31): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(263,29): warning C4474: 'printf' : too many arguments passed for format string
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(263,29): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(266,31): warning C4474: 'printf' : too many arguments passed for format string
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(266,31): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(287,21): warning C4013: 'malloc' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(287,46): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(290,10): warning C4129: 'N': unrecognized character escape sequence
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(291,7): warning C4013: 'exit' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(309,7): warning C4013: 'free' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(365,41): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(368,10): warning C4129: 'N': unrecognized character escape sequence
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(392,42): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(395,10): warning C4129: 'N': unrecognized character escape sequence
+C:\Users\Vedran\source\repos\Polinomi\Polinomi\polinomi.c(390,25): warning C4101: 'temp': unreferenced local variable
   Polinomi.vcxproj -> C:\Users\Vedran\source\repos\Polinomi\Debug\Polinomi.exe

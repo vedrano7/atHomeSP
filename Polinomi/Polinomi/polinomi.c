@@ -77,12 +77,9 @@
 //			}
 //
 //			else {
-//
-//				(P.nizKoef[i - 1] == 0);
-//				printf("%d*x^%d+", P.nizKoef[i], i);
+////				printf("%d*x^%d+", P.nizKoef[i], i);
 //				i++;
 //			
-//
 //			}
 //
 //		}
@@ -123,12 +120,8 @@
 //				for (j = 0; j <= P2.maxKoristenaPot; j++) {
 //
 //					if (P2.nizKoef[j] != 0) {
-//
-//						if (P->nizKoef[i + j] == 0)
-//							P->nizKoef[i + j] = P1.nizKoef[i] * P2.nizKoef[j];
-//
-//						else
-//							P->nizKoef[i + j] += P1.nizKoef[i] * P2.nizKoef[j];
+//						
+//						P->nizKoef[i + j] += P1.nizKoef[i] * P2.nizKoef[j];
 //					}
 //				}
 //			}
@@ -142,31 +135,30 @@
 
 //Polinomi pomocu lista
 
-typedef struct polinomeElement* position;
+typedef struct PolynomeElement* position;
 
-typedef struct polinomeElement {
+typedef struct PolynomeElement {
 	int coef;
 	int exp;
 	position next;
 }
-PolinomeElement;
+PolynomeElement;
 
 int menu(position headA,position headB);
-int printPolinome(position P);
-int addElementToPolinome(position P, int exp, int coef);	//sortirani unosu polinom
-int polinomeSum(position P1, position P2);
-int polinomeProduct(position P1, position P2);
+int printPolynome(position P);
+int addElementToPolynome(position P, int exp, int coef);	//sortirani unosu polinom
+int PolynomeSum(position P1, position P2);
+int PolynomeProduct(position P1, position P2);
 
 
 int main() {
-	PolinomeElement headA = { 0,0,NULL };
-	PolinomeElement headB = { 0,0,NULL };
+	PolynomeElement headA = { 0,0,NULL };
+	PolynomeElement headB = { 0,0,NULL };
 
 	menu(&headA,&headB);
 
 	return 0;
 }
-
 
 int menu(position headA,position headB) {
 	char pick = '\0';
@@ -184,12 +176,12 @@ int menu(position headA,position headB) {
 				printf("\nUnesite potenciju i koeficijent novog pribrojnika: \n");
 				scanf("%d %d", &newExp, &newCoef);
 
-				addElementToPolinome(headA,newExp,newCoef);
+				addElementToPolynome(headA,newExp,newCoef);
 
 				break;
 
 			case '2':
-				printPolinome(headA->next);
+				printPolynome(headA->next);
 
 				break;
 
@@ -198,24 +190,24 @@ int menu(position headA,position headB) {
 				printf("\nUnesite potenciju i koeficijent novog pribrojnika: \n");
 				scanf("%d %d", &newExp, &newCoef);
 
-				addElementToPolinome(headB, newExp, newCoef);
+				addElementToPolynome(headB, newExp, newCoef);
 
 
 				break;
 
 			case '4':
-				printPolinome(headB->next);
+				printPolynome(headB->next);
 
 
 				break;
 
 			case '5':
-				polinomeSum(headA->next, headB->next);
+				PolynomeSum(headA->next, headB->next);
 
 				break;
 
 			case '6':
-				polinomeProduct(headA->next, headB->next);
+				PolynomeProduct(headA->next, headB->next);
 
 				break;
 
@@ -238,7 +230,7 @@ int menu(position headA,position headB) {
 	return 0;
 }
 
-int printPolinome(position P) {
+int printPolynome(position P) {
 
 	printf("\n-----------");
 
@@ -253,13 +245,29 @@ int printPolinome(position P) {
 
 			if (P->next != NULL) {
 
-				printf("%dx^%d+", P->coef, P->exp);
+				if(P->exp==0)
+					printf("%d+", P->coef);
+
+				else if(P->exp==1)
+					printf("%dx+", P->coef);
+
+				else
+					printf("%dx^%d+", P->coef, P->exp);
+
 				P = P->next;
 			}
 
 			else {
 
-				printf("%dx^%d", P->coef, P->exp);
+				if (P->exp == 0)
+					printf("%d", P->coef);
+
+				else if (P->exp == 1)
+					printf("%dx+", P->coef);
+
+				else
+					printf("%dx^%d", P->coef, P->exp);
+
 				P = P->next;
 			}
 		}
@@ -273,11 +281,10 @@ int printPolinome(position P) {
 	return 0;
 }
 
-
-int addElementToPolinome(position P, int exp, int coef){
+int addElementToPolynome(position P, int exp, int coef){
 	position newElement = NULL;
 
-	newElement = malloc(sizeof(PolinomeElement));
+	newElement = malloc(sizeof(PolynomeElement));
 
 	if (!newElement) {
 		printf("\Neuspjela alokacija memorije za newElement!\n");
@@ -287,10 +294,9 @@ int addElementToPolinome(position P, int exp, int coef){
 	newElement->coef = coef;
 	newElement->exp = exp;
 
-	while (P->next != NULL && newElement->exp > P->next->exp) {
+	while (P->next != NULL && newElement->exp > P->next->exp)
 		P = P->next;
 
-	}
 
 	if (P->next == NULL || newElement->exp < P->next->exp) {
 		newElement->next = P->next;
@@ -306,10 +312,10 @@ int addElementToPolinome(position P, int exp, int coef){
 	return 0;
 }
 
-int polinomeSum(position P1, position P2) {
+int PolynomeSum(position P1, position P2) {
 	/*position headS = NULL, temp = NULL;
 
-	headS = malloc(sizeof(PolinomeElement));
+	headS = malloc(sizeof(PolynomeElement));
 
 	if (!headS) {
 		printf("\Neuspjela alokacija memorije za headS!\n");
@@ -321,18 +327,18 @@ int polinomeSum(position P1, position P2) {
 	while (P1 != NULL && P2 != NULL) {
 
 		if (P1->exp == P2->exp) {
-			addElementToPolinome(headS, P1->exp, P1->coef + P2->coef);
+			addElementToPolynome(headS, P1->exp, P1->coef + P2->coef);
 			P1 = P1->next;
 			P2 = P2->next;
 		}
 
 		else if (P1->exp > P2->exp) {
-			addElementToPolinome(headS, P2->exp, P2->coef);
+			addElementToPolynome(headS, P2->exp, P2->coef);
 			P2 = P2->next;
 		}
 
 		else {
-			addElementToPolinome(headS, P1->exp, P1->coef);
+			addElementToPolynome(headS, P1->exp, P1->coef);
 			P1 = P1->next;
 		}
 
@@ -346,17 +352,17 @@ int polinomeSum(position P1, position P2) {
 
 
 	while (temp != NULL) {
-		addElementToPolinome(headS, temp->exp, temp->coef);
+		addElementToPolynome(headS, temp->exp, temp->coef);
 		temp = temp->next;
 	}
 
-	printPolinome(headS->next);*/
+	printPolynome(headS->next);*/
 
-	//vise programerski nacin za zbrojit polinome
+	//vise programerski nacin za zbrojit Polynome
 
 	position headS = NULL;
 
-	headS = malloc(sizeof(PolinomeElement));
+	headS = malloc(sizeof(PolynomeElement));
 
 	if (!headS) {
 		printf("\Neuspjela alokacija memorije za headS!\n");
@@ -366,24 +372,24 @@ int polinomeSum(position P1, position P2) {
 	headS->next = NULL;
 
 	while (P1 != NULL) {
-		addElementToPolinome(headS, P1->exp, P1->coef);
+		addElementToPolynome(headS, P1->exp, P1->coef);
 		P1 = P1->next;
 	}
 
 	while (P2 != NULL) {
-		addElementToPolinome(headS, P2->exp, P2->coef);
+		addElementToPolynome(headS, P2->exp, P2->coef);
 		P2 = P2->next;
 	}
 
-	printPolinome(headS->next);
+	printPolynome(headS->next);
 
 	return 0;
 }
 
-int polinomeProduct(position P1, position P2) {
-	position headPr = NULL,temp,tempHeadP2=NULL;
+int PolynomeProduct(position P1, position P2) {
+	position headPr = NULL,temp,refHeadP2=P2;
 
-	headPr = malloc(sizeof(PolinomeElement));
+	headPr = malloc(sizeof(PolynomeElement));
 
 	if (!headPr) {
 		printf("\Neuspjela alokacija memorije za headPr!\n");
@@ -392,23 +398,21 @@ int polinomeProduct(position P1, position P2) {
 
 	headPr->next = NULL;
 
-	tempHeadP2 = P2;
-
 	while (P1 != NULL) {
 
 		while (P2 != NULL) {
 
-			addElementToPolinome(headPr,P1->exp + P2->exp, P1->coef * P2->coef);
+			addElementToPolynome(headPr,P1->exp + P2->exp, P1->coef * P2->coef);
 
 			P2 = P2->next;
 		}
 
 		P1 = P1->next;
 
-		P2 = tempHeadP2;
+		P2 = refHeadP2;
 	}
 
-	printPolinome(headPr->next);
+	printPolynome(headPr->next);
 
 	return 0;
 }

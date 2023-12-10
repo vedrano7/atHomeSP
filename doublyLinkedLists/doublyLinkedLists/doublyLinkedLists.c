@@ -292,6 +292,7 @@ int insertBeforeEl(position firstEl) {
 
 		newNode->el = newElToIns;
 
+
 		newNode->next = current;
 		newNode->prev = current->prev;
 

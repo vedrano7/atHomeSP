@@ -237,7 +237,6 @@ int printStack(position top) {
 	return EXIT_SUCCESS;
 }
 
-
 int push(int newEl, position top) {
 	position newNode = NULL;
 
@@ -256,7 +255,6 @@ int push(int newEl, position top) {
 
 	return EXIT_SUCCESS;
 }
-
 
 int pop(position top) {
 	position toDel = NULL;

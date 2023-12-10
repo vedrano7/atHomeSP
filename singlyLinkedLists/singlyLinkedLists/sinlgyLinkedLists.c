@@ -232,10 +232,8 @@ int insertEnd(position P) {
 	printf("\nUnesite novi element:\n");
 	scanf("%d", &newNode->el);
 
-	while (P->next != NULL) {
-
+	while (P->next != NULL) 
 		P = P->next;
-	}
 
 	newNode->next = P->next;
 	P->next = newNode;
@@ -257,10 +255,6 @@ position search(position P) {
 		P = P->next;
 	}
 
-	if (P == NULL)
-		return NULL;
-
-	else
 		return P;
 
 }
