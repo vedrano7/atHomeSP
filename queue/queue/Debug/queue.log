@@ -1,3 +1,2 @@
 ﻿  queue.c
-C:\Users\Vedran\source\repos\queue\queue\queue.c(37,19): warning C4020: 'enqueue': too many actual parameters
   queue.vcxproj -> C:\Users\Vedran\source\repos\queue\Debug\queue.exe

@@ -130,7 +130,6 @@ positionTreeNode pop(positionStackNode stackTop) {
 	return poppedOperand;
 }
 
-
 int push(positionStackNode top, positionTreeNode newTreeNode){
 	positionStackNode newStackNode = NULL;
 
@@ -145,10 +144,9 @@ int push(positionStackNode top, positionTreeNode newTreeNode){
 	return EXIT_SUCCESS;
 }
 
+int printTree(positionTreeNode root) {		//inorder ispis 
 
-int printTree(positionTreeNode root) {
-
-	if (root == NULL) {
+	if (root == NULL) {		//u ovom kodu nam treba ova provjera jer stablo moze biti prazno (ako je datoteka iz koje citamo izraz prazna)
 		printf("\nTree is empty!\n");
 		return EXIT_FAILURE;
 	}
