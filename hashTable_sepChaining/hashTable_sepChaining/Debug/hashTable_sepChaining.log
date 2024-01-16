@@ -1,0 +1,4 @@
+﻿  hashTable_sepChaining.c
+C:\Users\Vedran\source\repos\hashTable_sepChaining\hashTable_sepChaining\hashTable_sepChaining.c(127,22): warning C4047: 'return': 'hashTabPointer' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\hashTable_sepChaining\hashTable_sepChaining\hashTable_sepChaining.c(137,22): warning C4047: 'return': 'hashTabPointer' differs in levels of indirection from 'int'
+  hashTable_sepChaining.vcxproj -> C:\Users\Vedran\source\repos\hashTable_sepChaining\Debug\hashTable_sepChaining.exe
