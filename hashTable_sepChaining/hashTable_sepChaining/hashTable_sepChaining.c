@@ -144,20 +144,20 @@ hashTabPointer initializeHashTab(int wantedTabSize) {
 }
 
 int nextPrimeNum(int wantedTabSize) {
-	int num = wantedTabSize, i = 0, prime = 1;
+	int num = wantedTabSize, i = 0, isPrime = 1;
 
 	while (1) {
-		prime = 1;		//moramo pri svakom novom num resetirat na 1 zato sto ako to ne napravimo prime ce ostat 0 od proslog prolaska kroz petlju i tako ce se petlja vrtit zauvijek jer unutar nje se ne moze nikako promijenit na 1
+		isPrime = 1;		//moramo pri svakom novom num resetirat na 1 zato sto ako to ne napravimo prime ce ostat 0 od proslog prolaska kroz petlju i tako ce se petlja vrtit zauvijek jer unutar nje se ne moze nikako promijenit na 1
 
 		for (i = 2; i <= sqrt(num); i++) {		// iz matematike znamo da nemoramo provjeravat brojeve nakon korijena iz n za vidit je li broj prost
 			if (num % i == 0) {
-				prime = 0;
+				isPrime = 0;
 				break;
 			}
 		
 		}
 
-		if (prime == 1)
+		if (isPrime == 1)
 			break;
 
 		num++;

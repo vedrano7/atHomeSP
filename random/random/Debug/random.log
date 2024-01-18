@@ -1,1 +1,4 @@
-﻿  random.vcxproj -> C:\Users\Vedran\source\repos\random\Debug\random.exe
+﻿  random.c
+C:\Users\Vedran\source\repos\random\random\random.c(86,22): warning C4047: 'return': 'positionTreeNodeB' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\random\random\random.c(254,40): warning C4133: 'function': incompatible types - from 'char [50]' to 'positionTreeNodeB'
+  random.vcxproj -> C:\Users\Vedran\source\repos\random\Debug\random.exe

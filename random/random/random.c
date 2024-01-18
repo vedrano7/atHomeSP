@@ -1,206 +1,291 @@
-﻿/*
-* Napisati program koji pomoæu vezanih listi (stabala) predstavlja strukturu direktorija.
-Omoguæiti unos novih direktorija i pod-direktorija, ispis sadržaja direktorija i
-povratak u prethodni direktorij. Toènije program treba preko menija simulirati
-korištenje DOS naredbi: 1- "md", 2 - "cd dir", 3 - "cd..", 4 - "dir" i 5 – izlaz.
-*/
-
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-#include <stdlib.h>
+#include<stdlib.h>
 #include <string.h>
+#define MAXLINESIZE (100)
+#define MAXNAMESIZE (50)
 
-#define MAX_NAME_LENGTH 50
+typedef struct ListNodeB* positionListNodeB;
+typedef struct ListNodeB {
+	char cityName[MAXNAMESIZE];
+	int cityPopulation;
+	positionListNodeB next;
+}listNodeB;
 
-struct _directory;
-typedef struct _directory* PositionDirectory;
-typedef struct _directory {
-    char name[MAX_NAME_LENGTH];
-    PositionDirectory subDirectories;
-    PositionDirectory next;
-} Directory;
+typedef struct TreeNodeB* positionTreeNodeB;
+typedef struct TreeNodeB {
+	char countryName[MAXNAMESIZE];
 
-struct _levelStack;
-typedef struct _levelStack* PositionLevelStack;
-typedef struct _levelStack {
-    PositionDirectory directoryLevel;
-    PositionLevelStack next;
-} LevelStack;
+	positionListNodeB headCities;
 
-PositionDirectory createDirectory(char name[MAX_NAME_LENGTH]);
-PositionDirectory createSubdirectory(char name[MAX_NAME_LENGTH], PositionDirectory currentDirectory);
-PositionDirectory changeDirectory(char name[MAX_NAME_LENGTH], PositionDirectory currentDirectory);
-int listDirectoryContents(PositionDirectory currentDirectory);
+	positionTreeNodeB leftChild;
+	positionTreeNodeB rightChild;
+}treeNodeB;
 
-PositionDirectory pop(PositionLevelStack headLevelStack);
-int push(PositionLevelStack headLevelStack, PositionDirectory directoryLevel);
-PositionLevelStack createNewLevelStackElement(PositionDirectory directoryLevel);
+
+int problemB();
+positionTreeNodeB makeCountryTreeAndCityList(char* filename, positionTreeNodeB rootCountryTree);
+positionTreeNodeB countryTreeSortInsert(positionTreeNodeB root, char* countryName);
+positionTreeNodeB createTreeNodeB(char* countryName);
+positionListNodeB createCityListNode(int cityPop, char* cityName);
+int readFromCityFileAndMakeLists(positionTreeNodeB rootCountryTree, char* countryName, char* cityFileName);
+positionTreeNodeB findCountryNode(positionTreeNodeB root, char* countryName);
+int cityListSortInsert(positionListNodeB head, int cityPop, char* cityName);
+positionListNodeB createCityListNode(int cityPop, char* cityName);
+int inorderPrintCountryTreeAndCityLists(positionTreeNodeB root);
+int printCityList(positionListNodeB firstEl);
+int printCitiesWithGreaterPopulationB(positionTreeNodeB rootCountry, int inputPopNum);
+positionListNodeB findGreaterPopCityB(positionListNodeB firstEl, int inputPopNum);
+int printCitiesB(positionTreeNodeB countryNode, positionListNodeB firstGreaterPopCity, positionListNodeB firstEl);
+
 
 int main() {
-    Directory headDirectory = {
-        .name = {0},
-        .subDirectories = NULL,
-        .next = NULL
-    };
-    PositionDirectory rootDirectory = createDirectory("C:");
-    headDirectory.next = rootDirectory;
+	char pick = '\0';
 
-    PositionDirectory currentDirectory = rootDirectory;
+	printf("\nUkoliko zelite zadatak pod a) upisite 'a', a ukoliko zelite zadatak pod b) upisite 'b'\n");
+	scanf("%c", &pick);
 
-    LevelStack headLevelStack = {
-        .directoryLevel = NULL,
-        .next = NULL
-    };
-    push(&headLevelStack, currentDirectory);
+	/*if (pick == 'a')
+		problemA();
 
-    while (1) {
-        printf("\nMenu:\n");
-        printf("1 - md (Create Directory)\n");
-        printf("2 - cd dir (Change Directory)\n");
-        printf("3 - cd.. (Go Up)\n");
-        printf("4 - dir (List Contents)\n");
-        printf("5 - exit\n");
+	else*/
+		problemB();
 
-        char choice[10];
-        printf("Enter your choice: ");
-        scanf("%s", choice);
-
-        if (strcmp(choice, "1") == 0) {
-            char directoryName[MAX_NAME_LENGTH];
-            printf("\033[0;32mEnter directory name: \033[0m");
-            scanf("%s", directoryName);
-            createSubdirectory(directoryName, currentDirectory);
-        }
-        else if (strcmp(choice, "2") == 0) {
-            char directoryName[MAX_NAME_LENGTH];
-            printf("\033[0;32mEnter directory name: \033[0m");
-            scanf("%s", directoryName);
-            currentDirectory = changeDirectory(directoryName, currentDirectory);
-            push(&headLevelStack, currentDirectory);
-        }
-        else if (strcmp(choice, "3") == 0) {
-            if (currentDirectory != rootDirectory) {
-                currentDirectory = pop(&headLevelStack);
-                printf("\033[0;32mCurrently in '%s' \033[0m\n", currentDirectory->name);
-            }
-            else {
-                printf("Already in the root directory.\n");
-                return currentDirectory;
-            }
-        }
-        else if (strcmp(choice, "4") == 0) {
-            listDirectoryContents(currentDirectory);
-        }
-        else if (strcmp(choice, "5") == 0) {
-            printf("Exiting the program.\n");
-            break;
-        }
-        else {
-            printf("\033[0;31mInvalid choice. Please enter a valid option.\033[0m\n");
-        }
-    }
-
-    // Free allocated memory
-    free(rootDirectory);
-
-    return 0;
+		return EXIT_SUCCESS;
 }
 
-/*Directory functions*/
+int problemB() {
+	positionTreeNodeB rootCountryTree = NULL;
+	int inputPopNum = 0;
+	
+	rootCountryTree =makeCountryTreeAndCityList("drzave.txt", rootCountryTree);
+	
+	printf("\n---------\n");
 
-PositionDirectory createDirectory(char name[MAX_NAME_LENGTH]) {
-    PositionDirectory newDirectory = NULL;
-    newDirectory = (PositionDirectory)malloc(sizeof(Directory));
-    if (!newDirectory) {
-        printf("Can't allocate memory!\n");
-        return NULL;
-    }
-    strcpy(newDirectory->name, name);
-    newDirectory->subDirectories = NULL;
-    newDirectory->next = NULL;
-    return newDirectory;
+	inorderPrintCountryTreeAndCityLists(rootCountryTree);
+
+	printf("---------\n");
+	
+	printf("\nUpisite odredeni broj stanovnika i mi cemo Vam ispisati imena svih gradova ovdje upisano s vecim!\n");
+	scanf("%d", &inputPopNum);
+	
+	printCitiesWithGreaterPopulationB(rootCountryTree, inputPopNum);
+	
+	return EXIT_SUCCESS;
 }
 
-PositionDirectory createSubdirectory(char name[MAX_NAME_LENGTH], PositionDirectory currentDirectory) {
-    PositionDirectory newDirectory = NULL;
-    newDirectory = createDirectory(name);
-    if (!newDirectory) {
-        printf("New directory wasn't created!\n");
-        return NULL;
-    }
-    newDirectory->next = currentDirectory->subDirectories;
-    currentDirectory->subDirectories = newDirectory;
-    return newDirectory;
+positionTreeNodeB makeCountryTreeAndCityList(char* filename, positionTreeNodeB rootCountryTree) {
+	FILE* countriesFile = NULL;
+	char buffer[MAXNAMESIZE] = { 0 }, countryName[MAXNAMESIZE] = { 0 }, cityFileName[MAXNAMESIZE] = { 0 };
+
+
+	countriesFile = fopen(filename, "r");
+
+	if (!countriesFile) {
+		printf("\nUnable to open file countriesFile!\n");
+		return EXIT_FAILURE;
+	}
+
+	while (!feof(countriesFile)) {
+		fgets(buffer, MAXLINESIZE, countriesFile);
+		sscanf(buffer, "%s %s", countryName, cityFileName);
+
+		rootCountryTree = countryTreeSortInsert(rootCountryTree, countryName);
+		readFromCityFileAndMakeLists(rootCountryTree,countryName, cityFileName);
+	}
+
+	return rootCountryTree;
 }
 
-PositionDirectory changeDirectory(char name[MAX_NAME_LENGTH], PositionDirectory currentDirectory) {
-    PositionDirectory subdirectory = currentDirectory->subDirectories;
-    while (subdirectory != NULL) {
-        if (strcmp(subdirectory->name, name) == 0) {
-            return subdirectory;
-        }
-        subdirectory = subdirectory->next;
-    }
-    printf("Directory '%s' not found.\n", name);
-    return currentDirectory;
+positionTreeNodeB countryTreeSortInsert(positionTreeNodeB root, char* countryName) {
+	
+	if (root == NULL)
+		return createTreeNodeB(countryName);
+	
+	else if (strcmp(countryName, root->countryName) < 0)
+		root->leftChild = countryTreeSortInsert(root->leftChild, countryName);
+	
+	else if (strcmp(countryName, root->countryName) > 0)
+		root->rightChild = countryTreeSortInsert(root->rightChild,countryName);
+	
+	return root;
+}
+	
+positionTreeNodeB createTreeNodeB(char* countryName) {
+	positionTreeNodeB newNode = NULL;
+
+	newNode = malloc(sizeof(treeNodeB));
+
+	if (!newNode) {
+		printf("\nUnable to allocate memory for newNode!\n");
+		return NULL;
+	}
+
+	strcpy(newNode->countryName, countryName);
+
+	newNode->headCities = malloc(sizeof(listNodeB));
+	newNode->headCities->next = NULL;
+
+	newNode->leftChild = NULL;
+	newNode->rightChild = NULL;
+
+	return newNode;
 }
 
-int listDirectoryContents(PositionDirectory currentDirectory) {
-    printf("\033[0;32mContents of directory '%s':\033[0m\n", currentDirectory->name);
-    PositionDirectory subdirectory = currentDirectory->subDirectories;
-    while (subdirectory != NULL) {
-        printf("\033[0;32m - %s\033[0m\n", subdirectory->name);
-        subdirectory = subdirectory->next;
-    }
-    if (currentDirectory->subDirectories == NULL) {
-        printf("\033[0;32m   (empty)\033[0m\n");
-    }
-    return EXIT_SUCCESS;
+int readFromCityFileAndMakeLists(positionTreeNodeB rootCountryTree, char* countryName, char* cityFileName) {
+	FILE* cityFile = NULL;
+	char buffer[MAXNAMESIZE] = { 0 }, cityName[MAXNAMESIZE] = { 0 };
+	int cityPopulation = 0;
+	positionTreeNodeB countryNode = NULL;
+
+	cityFile = fopen(cityFileName, "r");
+
+	if (!cityFile) {
+		printf("\nUnable to open file countriesFile!\n");
+		return EXIT_FAILURE;
+	}
+
+
+	while (!feof(cityFile)) {
+		fgets(buffer, MAXLINESIZE, cityFile);
+		sscanf(buffer, "%[^,]%*c%d", cityName, &cityPopulation);	//za ime grada uzima sve do zareza onda uzima i odma odbacuje zarez i zadnje uzima broj za populaciju grada
+
+
+		countryNode = findCountryNode(rootCountryTree, countryName);
+		cityListSortInsert(countryNode->headCities, cityPopulation, cityName);
+
+	}
+
+	return EXIT_SUCCESS;
 }
 
-/*Stack functions*/
+positionTreeNodeB findCountryNode(positionTreeNodeB root, char* countryName) {
+	if (root == NULL)
+		return NULL;
 
-PositionDirectory pop(PositionLevelStack headLevelStack) {
-    PositionLevelStack toDelete = NULL;
-    PositionDirectory directoryLevel = NULL;
+	else if (strcmp(countryName,root->countryName)<0)
+		return findCountryNode(root->leftChild, countryName);
 
-    toDelete = headLevelStack->next;
-    if (!toDelete) {
-        printf("Stack is empty! Nothing to pop!\n");
-        return NULL;
-    }
+	else if (strcmp(countryName, root->countryName) > 0)
+		return findCountryNode(root->rightChild, countryName);
 
-    headLevelStack->next = toDelete->next;
-    directoryLevel = toDelete->directoryLevel;
-    free(toDelete);
-
-    return directoryLevel;
+	return root;
 }
 
-int push(PositionLevelStack headLevelStack, PositionDirectory directoryLevel) {
-    PositionLevelStack newLevelStackElement = NULL;
+int cityListSortInsert(positionListNodeB head, int cityPop, char* cityName) {
+	positionListNodeB newNode = NULL, current = head;
 
-    newLevelStackElement = createNewLevelStackElement(directoryLevel);
-    if (!newLevelStackElement) {
-        perror("Error in creating new element!\n");
-        return NULL;
-    }
+	newNode = createCityListNode(cityPop, cityName);
 
-    newLevelStackElement->next = headLevelStack->next;
-    headLevelStack->next = newLevelStackElement;
+	while (current->next != NULL && newNode->cityPopulation > current->next->cityPopulation)
+		current = current->next;
+
+	if (current->next == NULL || newNode->cityPopulation != current->next->cityPopulation) {
+
+		newNode->next = current->next;
+		current->next = newNode;
+	}
+	
+	else {
+
+		while (current->next != NULL && strcmp(newNode->cityName, current->next->cityName) > 0)
+			current = current->next;
+
+		newNode->next = current->next;
+		current->next = newNode;
+	}
+
+	return EXIT_SUCCESS;
 }
 
-PositionLevelStack createNewLevelStackElement(PositionDirectory directoryLevel) {
-    PositionLevelStack newLevelStackElement = NULL;
+positionListNodeB createCityListNode(int cityPop, char* cityName) {
+	positionListNodeB newNode = NULL;
 
-    newLevelStackElement = (PositionLevelStack)malloc(sizeof(LevelStack));
-    if (!newLevelStackElement) {
-        perror("Can't allocate memory!\n");
-        return NULL;
-    }
+	newNode = malloc(sizeof(listNodeB));
 
-    newLevelStackElement->directoryLevel = directoryLevel;
-    newLevelStackElement->next = NULL;
+	if (!newNode) {
+		printf("\nNeuspjela alokacija memorije za newNode\n");
+		exit(-1);
+	}
 
-    return newLevelStackElement;
+	strcpy(newNode->cityName, cityName);
+	newNode->cityPopulation = cityPop;
+	newNode->next = NULL;
+
+	return newNode;
+}
+
+int inorderPrintCountryTreeAndCityLists(positionTreeNodeB root) {
+		
+	if (root != NULL) {
+		inorderPrintCountryTreeAndCityLists(root->leftChild);
+		printf("%s ->", root->countryName);
+		printCityList(root->headCities->next);
+		printf("\n");
+		inorderPrintCountryTreeAndCityLists(root->rightChild);
+	}
+		
+	return 0;
+}
+	
+int printCityList(positionListNodeB firstEl) {
+	positionListNodeB current = firstEl;
+
+	if (current == NULL)
+		printf("Nema upisanih gradova!\n");
+
+	else {
+		while (current != NULL) {
+
+			printf("   %s   ", current->cityName);
+			current = current->next;
+		}
+	}
+
+	return 0;
+}
+
+int printCitiesWithGreaterPopulationB(positionTreeNodeB rootCountry, int inputPopNum) {
+	positionListNodeB greaterPopCity = NULL;
+	
+	if (rootCountry != NULL) {
+		printCitiesWithGreaterPopulationB(rootCountry->leftChild, inputPopNum);
+		greaterPopCity=findGreaterPopCityB(rootCountry->headCities->next, inputPopNum);
+		printCitiesB(rootCountry->countryName,greaterPopCity,rootCountry->headCities->next);
+		printCitiesWithGreaterPopulationB(rootCountry->rightChild, inputPopNum);
+	}
+	
+	return EXIT_SUCCESS;
+}
+
+positionListNodeB findGreaterPopCityB(positionListNodeB firstEl, int inputPopNum) {
+	positionListNodeB current = firstEl;
+
+	while (current != NULL && inputPopNum >= current->cityPopulation)
+		current = current->next;
+
+	return current;
+}
+
+int printCitiesB(positionTreeNodeB countryNode, positionListNodeB firstGreaterPopCity, positionListNodeB firstEl) {
+	positionListNodeB current = firstGreaterPopCity;
+
+	if (current == NULL)
+		printf("\nNema gradova s vecim brojem stanovnika upisano u fajl '%s'!\n", countryNode->countryName);
+
+	else {
+		
+		printf("\nGradovi s vecim brojem gradana upisani u fajl '%s' su: ", countryNode->countryName);
+
+		while (current != NULL) {
+			
+			printf("   %s	", current->cityName);
+
+			current = current->next;
+		}
+
+		printf("\n");
+	}
+
+	return 0;
 }

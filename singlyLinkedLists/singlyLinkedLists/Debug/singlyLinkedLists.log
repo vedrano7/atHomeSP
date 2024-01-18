@@ -2,9 +2,9 @@
 C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(192,25): warning C4013: 'malloc' undefined; assuming extern returning int
 C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(196,7): warning C4013: 'exit' undefined; assuming extern returning int
 C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(225,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(358,8): warning C4778: 'scanf' : unterminated format string '%'
-C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(376,6): warning C4013: 'free' undefined; assuming extern returning int
-C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(423,33): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(484,33): warning C4047: '=': 'position' differs in levels of indirection from 'int'
-C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(581,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(352,8): warning C4778: 'scanf' : unterminated format string '%'
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(370,6): warning C4013: 'free' undefined; assuming extern returning int
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(417,33): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(478,33): warning C4047: '=': 'position' differs in levels of indirection from 'int'
+C:\Users\Vedran\source\repos\singlyLinkedLists\singlyLinkedLists\sinlgyLinkedLists.c(575,32): warning C4047: '=': 'position' differs in levels of indirection from 'int'
   singlyLinkedLists.vcxproj -> C:\Users\Vedran\source\repos\singlyLinkedLists\Debug\singlyLinkedLists.exe
