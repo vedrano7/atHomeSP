@@ -17,8 +17,8 @@ typedef struct ListNode* listPointer;			//definiramo ovo samo da nan bude lakse 
 typedef struct HashTable* hashTabPointer;		//koristit ce se samo za slat tablicu u funkcije
 typedef struct HashTable{
 	int tabSize;
-	listPointer* hashList;	//ListNode pointer se odi koristi za inicijaliziranje niza pointera na ListNode elemente (to cemo napravit dinamickom alokacijom poslije prema velTab) sto zap predstavlja niz elemenata hash tablice, a svaki od njih je zap head od svoje vezane liste sto sluzi u slucaju da dode do kolizija
-}hashTable;
+	listPointer* buckets;	//ListNode pointer se odi koristi za inicijaliziranje niza pointera na ListNode elemente (to cemo napravit dinamickom alokacijom poslije prema velTab) sto zap predstavlja niz elemenata hash tablice, a svaki od njih je zap head od svoje vezane liste sto sluzi u slucaju da dode do kolizija
+}hashTable;					//nazvali smo buckets (tako je Duje u 11.zad sa labova) jer ubacujemo elemente u clanove tog niza kao u kante (mogli smo i npr items jer su to items of hash tablice
 
 
 int menu(hashTabPointer hashT);
@@ -129,16 +129,16 @@ hashTabPointer initializeHashTab(int wantedTabSize) {
 
 	hashT->tabSize = nextPrimeNum(wantedTabSize);
 
-	hashT->hashList = malloc(sizeof(listNode) * (hashT->tabSize));
+	hashT->buckets = malloc(sizeof(listNode) * (hashT->tabSize));
 
-	if (hashT->hashList == NULL) {
-		printf("\nUnable to allocate memory for hashT->hashList!");
+	if (hashT->buckets == NULL) {
+		printf("\nUnable to allocate memory for hashT->buckets!");
 		free(hashT);
 		return EXIT_FAILURE;
 	}
 
 	for (i=0; i < hashT->tabSize; i++)
-		hashT->hashList[i] = NULL;
+		hashT->buckets[i] = NULL;
 
 	return hashT;
 }
@@ -180,8 +180,8 @@ int addElement(hashTabPointer hashT, int el) {
 
 	//kada se u hash tablicu ostvarenu pomocu zasebnih redova dodaje element na neku poziciju koja je vec zauzeta onda se on UVIJEK dodaju na pocetak vezane liste tog reda (pozicije) i time zap zauzima mjesto prethodnog u tablici tj nizu, dok taj prethodni zajedno s ostaktom vezanih elemenata bude izvan tablice povezan samo s vezama vezane liste
 
-	newHashTableEl->next = hashT->hashList[hashFunction(el, hashT->tabSize)];
-	hashT->hashList[hashFunction(el, hashT->tabSize)] = newHashTableEl;
+	newHashTableEl->next = hashT->buckets[hashFunction(el, hashT->tabSize)];
+	hashT->buckets[hashFunction(el, hashT->tabSize)] = newHashTableEl;
 
 	return EXIT_SUCCESS;
 }
@@ -193,7 +193,7 @@ int hashFunction(int key, int tabSize) {		//ovakva je fja preslikavanja uvijek k
 position findElement(hashTabPointer hashT, int wantedEl) {			//funkcionira tako da deklariramo pokazivac na listu kojem pridijelimo adresu pozicije u hash tablici na kojem bi se trazeni element nalazio u slucaju da je u tablici i onda prodemo cijelu vezanu listu te pozicije i trazimo ga
 	listPointer wantedList=NULL, current=NULL;		
 
-	wantedList = hashT->hashList[hashFunction(wantedEl, hashT->tabSize)];
+	wantedList = hashT->buckets[hashFunction(wantedEl, hashT->tabSize)];
 
 	current = wantedList;
 
@@ -207,11 +207,11 @@ int delHashT(hashTabPointer hashT) {
 	int i = 0;
 
 	for (; i < hashT->tabSize; i++) {
-		if (hashT->hashList[i] != NULL)
-			delLinkedList(hashT->hashList[i]);
+		if (hashT->buckets[i] != NULL)
+			delLinkedList(hashT->buckets[i]);
 	}
 
-	free(hashT->hashList);
+	free(hashT->buckets);
 
 	free(hashT);
 
