@@ -1,0 +1,3 @@
+﻿  heap.c
+C:\Users\Vedran\source\repos\heap\heap\heap.c(74,17): warning C4013: 'emptyHeap' undefined; assuming extern returning int
+  heap.vcxproj -> C:\Users\Vedran\source\repos\heap\Debug\heap.exe
